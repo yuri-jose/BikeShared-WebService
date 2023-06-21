@@ -21,23 +21,6 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
-    path: '/#',
-    component: () => import('layouts/LoginLayout.vue'),
-    children: [
-      {
-        path: '/login',
-        name: 'login',
-        component: () => import('pages/admin/loginPage.vue'),
-      },
-      {
-        path: '/reset-password',
-        name: 'reset-password',
-        component: () => import('pages/admin/reset-passwordPage.vue'),
-      },
-    ],
-  },
-
-  {
     path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -45,6 +28,26 @@ const routes: RouteRecordRaw[] = [
         path: '/dashboard',
         name: 'dashboard',
         component: () => import('pages/admin/principalPage.vue'),
+      },
+      {
+        path: '/listEstacao',
+        name: 'listEstacao',
+        component: () => import('pages/admin/listEstacaoPage.vue'),
+      },
+      {
+        path: '/estacao',
+        name: 'estacao',
+        component: () => import('pages/admin/estacaoPage.vue'),
+      },
+      {
+        path: '/listUsers',
+        name: 'listUsers',
+        component: () => import('pages/admin/listUsersPage.vue'),
+      },
+      {
+        path: '/cliente',
+        name: 'cliente',
+        component: () => import('pages/admin/clientePage.vue'),
       },
     ],
   },

@@ -4,16 +4,21 @@
       <div class="row">
         <div class="col-12 flex-center text-center">
           <br />
-          <q-btn round dense flat :ripple="false" :icon="fabGithub" label="Bike Shared" size="19px" color="black"
-            class="q-mr-sm" no-caps />
+          <q-icon color="accent" size="5rem" name="img:/img/noun-bike-1997666.svg">
+          </q-icon><br>
+          <q-btn style="margin-top: -35px;" round dense flat :ripple="false" label=" Bike Shared" size="17px"
+            color="black" class="q-mr-sm tex-bold" no-caps />
         </div>
 
         <div class="col-8 offset-2 flex flex-center login-content">
           <q-form @submit="handleLogin" class="text-center flex-center q-gutter-md">
             <div class="login-text-area">
-              <q-input dense v-model="form.email" rounded outlined label="Email" lazy-rules :rules="[
+              <q-input type="email" dense v-model="form.email" rounded outlined label="Email" lazy-rules :rules="[
                 (val) =>
                   (val && val.length > 0) || 'Campo não pode estar vazio',
+                (val) => (val && val.length > 12) || 'Email inválido',
+                value => value.includes('@gmail', '@hotmail') || 'deve conter a palavra @gmail ou @hotmail',
+                value => value.includes('.com') || 'Email inválido!'
               ]" />
 
               <q-input dense v-model="form.password" rounded outlined type="password" label="senha" lazy-rules :rules="[
@@ -30,16 +35,16 @@
 
             <div class="login-btn-area">
               <q-btn unelevated rounded :id="id" dense label="acessar" type="submit" style="
-                      min-width: 100%;
-                      border: 0.5px solid #49d166;
-                      background-color: #49d166;
-                      color: #fff;
-                      padding: 5px 30px;
-                      font-weight: normal;
-                      .q-btn__content {
-                        padding: 10px;
-                      }
-                    " />
+                                                                          min-width: 100%;
+                                                                          border: 0.5px solid #49d166;
+                                                                          background-color: #49d166;
+                                                                          color: #fff;
+                                                                          padding: 5px 30px;
+                                                                          font-weight: normal;
+                                                                          .q-btn__content {
+                                                                            padding: 10px;
+                                                                          }
+                                                                        " />
 
               <q-btn :to="{ name: 'reset-password' }" label="Esqueceu a Palavra Passe?"
                 class="full-width q-my-md text-primary text-center" flat />
@@ -56,7 +61,7 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { fabGithub } from '@quasar/extras/fontawesome-v6';
+//import { logobike } from '@quasar/extras/fontawesome-v6';
 import axios from 'axios';
 
 export default defineComponent({
@@ -68,6 +73,8 @@ export default defineComponent({
     //const user = {};
 
     const loading = ref(false);
+
+    const logobike = '../../../public/img/bike.png'
 
     const router = useRouter();
 
@@ -117,6 +124,7 @@ export default defineComponent({
       } catch (error) {
         alert(error.message);
       } finally {
+        router.push('/dashboard');
         loading.value = false;
       }
     };
@@ -124,7 +132,7 @@ export default defineComponent({
       handleLogin,
       form,
       loading,
-      fabGithub,
+      logobike,
     };
   },
 });
