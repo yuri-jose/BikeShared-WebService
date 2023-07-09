@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-toolbar-title class="flex text-h5 text-bold">Dashboard</q-toolbar-title>
+    <q-toolbar-title class="flex text-h5 text-bold">Dashboard da Estação {{ }}</q-toolbar-title>
     <div class="row q-mt-md q-gutter-x-md" style="height: 60%">
       <div class="col" style="widht: 40%; border-radius: 10px">
         <div class="row q-gutter-x-md">
@@ -10,28 +10,20 @@
           -->
           <div class="col ">
             <q-card :dense="$q.screen.lt.md" class="my-card text-white" style="
-         background: radial-gradient(circle, #00ff7e 0%, #5fcc2e 100%);
-         height: 120px;
-       ">
+             background: radial-gradient(circle, #00ff7e 0%, #5fcc2e 100%);
+             height: 120px;
+            ">
               <q-card-section>
                 <q-icon name="group" color="black" size="md" />
                 <div class="text-subtitle2 text-bold">Total de levantamentos</div>
                 <p class="text-right q-mt-sm q-mr-sm text-subtitle1">244</p>
               </q-card-section>
-              <q-card-section class="q-pt-none">
-                {{ lorem }}
-              </q-card-section>
             </q-card>
           </div>
-          <!--
-  FIM Primeiro Carde - Total de reservas feitas nas últimas 24h
--->
-          <!-----------Total de Entregas de Bikes-------->
+          <!-----------2º Card- Total de Entregas de Bikes-------->
           <div class="col q-ml-md">
-            <q-card :dense="$q.screen.lt.md" class="my-card text-white" style="
-                                              background: radial-gradient(circle, #35a2ff 0%, #014a88 100%);
-                                              height: 120px;
-                                            ">
+            <q-card :dense="$q.screen.lt.md" class="my-card text-white" style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%);
+            height: 120px;">
               <q-card-section>
                 <q-icon name="group" color="black" size="md" />
                 <div class="text-subtitle2 text-bold">
@@ -41,40 +33,29 @@
                   14
                 </p>
               </q-card-section>
-              <q-card-section class="q-pt-none">
-                {{ lorem }}
-              </q-card-section>
             </q-card>
           </div>
-          <!---------- Total De Bicicletas Disponíveis-------->
+          <!---------- 3º card- Total De Bicicletas Disponíveis-------->
           <div class="col">
             <q-card :dense="$q.screen.lt.md" class="my-card text-white" style="
-                                              background: radial-gradient(circle, #ab47bc 0%, #800080 100%);
-                                              height: 120px;
-                                            ">
+              background: radial-gradient(circle, #ab47bc 0%, #800080 100%); height: 120px;
+            ">
               <q-card-section>
                 <q-icon name="img:/img/noun-bike-1997666.svg" size="lg" />
                 <div class="text-subtitle2 text-bold">Total De Bicicletas Disponíveis</div>
                 <p class="text-right q-mt-sm q-mr-sm text-subtitle1">15</p>
               </q-card-section>
-              <q-card-section class="q-pt-none">
-                {{ lorem }}
-              </q-card-section>
             </q-card>
           </div>
-          <!--------------Total de Docas Livres---------------->
+          <!-------------- 4º Card- Total de Docas Livres---------------->
           <div class="col q-ml-md">
             <q-card :dense="$q.screen.lt.md" class="my-card text-white" style="
-                                              background: radial-gradient(circle, #ffb268 0%, #ff8c00 100%);
-                                              height: 120px;
-                                            ">
+              background: radial-gradient(circle, #ffb268 0%, #ff8c00 100%); height: 120px;
+            ">
               <q-card-section>
                 <q-icon name="category" color="black" size="md" />
                 <div class="text-subtitle2 text-bold">Total de Docas Livres</div>
                 <p class="text-right q-mt-sm q-mr-sm text-subtitle1">100</p>
-              </q-card-section>
-              <q-card-section class="q-pt-none">
-                {{ lorem }}
               </q-card-section>
             </q-card>
           </div>
@@ -82,18 +63,9 @@
       </div>
     </div>
 
-    <!-------Dias da semana mais solicitados---------------->
-
-
-
-    <!-------------Primeiro Gráfico Número de Reservas feitas no ano em curso----------->
-
-
-    <!----------------Cinemas Mais Frequentados---------------------->
     <div class="q-mt-md">
       <div class="row q-gutter-x-md">
-        <!-----------Prestadores de serviços mais solicitados---------------->
-
+        <!-----------Lista e Gráfico dos Dias da semana mais solicitados---------------->
         <div class="col" style="background-color: white; height: auto">
           <q-toolbar>
             <q-toolbar-title class="text-subtitle1 text-bold">
@@ -101,18 +73,25 @@
             </q-toolbar-title>
           </q-toolbar>
           <div>
-            <q-tabs :dense="$q.screen.lt.md" v-model="tab2" class="text-grey" active-color="primary"
+            <q-tabs :dense="$q.screen.lt.md" v-model="tab" class="text-grey" active-color="primary"
               indicator-color="primary" narrow-indicator inline-label>
-              <q-tab name="mails" icon="list_alt" label="Lista" />
-              <q-tab name="alarms" icon="bar_chart" label="Gráfico" />
+              <q-tab name="grafico" icon="bar_chart" label="Gráfico" />
+              <q-tab name="lista" icon="list_alt" label="Lista" />
             </q-tabs>
 
-            <q-tab-panels :dense="$q.screen.lt.md" v-model="tab2" animated class="shadow-2 rounded-borders q-mt-xs"
+            <q-tab-panels :dense="$q.screen.lt.md" v-model="tab" animated class="shadow-2 rounded-borders q-mt-xs"
               style="height: 300px">
-              <q-tab-panel name="mails">
+              <!-----------Gráfico dos Dias da semana mais solicitados---------------->
+              <q-tab-panel name="grafico">
+                <div id="chart">
+                  <apexchart type="bar" height="300" :options="bar.chartOptions" :series="bar.series"></apexchart>
+                </div>
+              </q-tab-panel>
+              <!-----------Lista dos Dias da semana mais solicitados---------------->
+              <q-tab-panel name="lista">
                 <div>
                   <q-list separator>
-                    <q-item v-for="user in users" :key="user.nome" clickable v-ripple>
+                    <q-item v-for="dayStatistic in daysStatistic" :key="dayStatistic.dayOfWeek" clickable v-ripple>
                       <q-item-section top avatar>
                         <q-avatar>
                           <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
@@ -120,22 +99,16 @@
                       </q-item-section>
 
                       <q-item-section>
-                        <q-item-label>{{ user.nome }}</q-item-label>
+                        <q-item-label>{{ dayStatistic.dayOfWeek }}</q-item-label>
                       </q-item-section>
 
                       <q-item-section side>
                         <q-badge class="text-subtitle2" color="red">
-                          {{ user.numero }}
+                          {{ dayStatistic.value }}
                         </q-badge>
                       </q-item-section>
                     </q-item>
                   </q-list>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="alarms">
-                <div id="chart">
-                  <apexchart type="bar" height="285" :options="chart.chartOptions" :series="chart.series"></apexchart>
                 </div>
               </q-tab-panel>
             </q-tab-panels>
@@ -143,13 +116,6 @@
         </div>
       </div>
     </div>
-
-    <!---------------------Último Gráfico Dos Géneros------------------>
-    <q-card :dense="$q.screen.lt.md" class="q-mt-md" style="width: 97%; background-color: white; border-radius: 2px">
-      <div id="chart">
-        <apexchart type="bar" height="300" :options="bar.chartOptions" :series="bar.series"></apexchart>
-      </div>
-    </q-card>
   </q-page>
 </template>
 <script>
@@ -166,73 +132,51 @@ export default {
     //-----------PRIMEIRO GRÁFICO Número de eservas feitas ao longo do ano------------------
     const visible = ref(false)
 
-    let v;
+    //const mycinemas = ref(['Cine_UAN', 'Cine_ADS', 'Cine_malanje', 'Cine_Benguela', 'Cine Cazenga'])
+    const daysOfWeek = ref([
+      'Domingo',
+      'Segunda Feira',
+      'Terça Feira',
+      'Quarta Feira',
+      'Quinta Feira',
+      'Sexta Feira',
+      'Sábado'
+    ]);
+
+    function statisticDaysWeek() {
+      const solicitacoes = [97, 67, 55, 77, 70, 81, 31];
+
+      return solicitacoes;
+    }
+
+    const statistic = ref(statisticDaysWeek());
+
+    const daysStatistic = ref([]);
+
+    function preechDaysValue() {
+      statistic.value.forEach((element, index) => {
+        daysStatistic.value.push({
+          dayOfWeek: daysOfWeek.value[index],
+          value: element
+        })
+      });
+    }
 
     const getdDataBD = async () => {
       visible.value = true
-      alert('foiiiii')
-      for (let index = 0; index < 100; index++) {
+      //alert('foiiiii')
+      for (let index = 0; index < 10; index++) {
         //const element = array[index];
       }
       visible.value = false
     }
-
-    const areaChart = reactive({
-      series: [
-        {
-          name: 'Número de usuários',
-          data: [300, 5, 234, 333, 445, 222, 334, 99, 33, 23, 511, 550],
-        },
-      ],
-      chartOptions: {
-        chart: {
-          type: 'area',
-          height: 350,
-          zoom: {
-            enabled: false,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: 'smooth',
-        },
-        title: {
-          text: 'Número de Reservas feitas ao longo do Ano',
-          align: 'left',
-        },
-        labels: [],
-        xaxis: {
-          categories: [
-            'Jan',
-            'Fev',
-            'Mar',
-            'Abril',
-            'Maio',
-            'Jun',
-            'Jul',
-            'Agosto',
-            'Set',
-            'Out',
-            'Nov',
-            'Dez',
-          ],
-        },
-        yaxis: {},
-        legend: {
-          horizontalAlign: 'left',
-        },
-      },
-    });
-    //--------------------------FIM PRIMEIRO GRáfico -------------------------------
 
     //--------------------Último Gráfico--------------------------------------
     const bar = reactive({
       series: [
         {
           name: 'Servings',
-          data: [44, 55, 41, 67, 22, 43, 21, 56],
+          data: [],
         },
       ],
       chartOptions: {
@@ -248,19 +192,19 @@ export default {
                   color: '#fff',
                   background: '#775DD0',
                 },
-                text: 'Bananas are good',
+                text: 'Bike Shared',
               },
             },
           ],
         },
         chart: {
-          height: 350,
+          height: 400,
           type: 'bar',
         },
         plotOptions: {
           bar: {
-            borderRadius: 10,
-            columnWidth: '40%',
+            borderRadius: 7,
+            columnWidth: '37%',
           },
         },
         dataLabels: {
@@ -276,20 +220,13 @@ export default {
           },
         },
         xaxis: {
-          categories: [
-            'Romance',
-            'Acção',
-            'Drama',
-            'Terror',
-            'Documentário',
-            'Suspance',
-            'História',
-          ],
+          categories: [],
           tickPlacement: 'on',
         },
         yaxis: {
+          max: 100,
           title: {
-            text: 'Estatísticas dos géneros assistidos',
+            text: 'Dados Estatísticos',
           },
         },
         fill: {
@@ -307,54 +244,9 @@ export default {
         },
       },
     });
+    bar.series[0].data = statistic;
+    bar.chartOptions.xaxis.categories = daysOfWeek.value;
     //--------FIM ÚLTIMO GRÁFICO-----------------------------------------------------
-
-    //-------Gráfico PIZZA Dos Cinemas Mais Frequentados ----------------------------
-    const mycinemas = ref(['Cine_UAN', 'Cine_ADS', 'Cine_malanje', 'Cine_Benguela', 'Cine Cazenga'])
-    const pie = reactive({
-      series: [44, 55, 41, 17, 15],
-      chartOptions: {
-        chart: {
-          width: 380,
-          type: 'donut',
-        },
-        plotOptions: {
-          pie: {
-            startAngle: -90,
-            endAngle: 270,
-          },
-
-        },
-        dataLabels: {
-          enabled: true,
-        },
-        fill: {
-          type: 'gradient',
-        },
-        legend: {
-          formatter: function (opts) {
-            return mycinemas.value[opts.seriesIndex] + ' - ' + opts.w.globals.series[opts.seriesIndex];
-          },
-        },
-        title: {
-          text: 'Gráfico dos Cinemas mais acessados',
-        },
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200,
-              },
-              legend: {
-                position: 'bottom',
-              },
-            },
-          },
-        ],
-      },
-    });
-    // FIM Gráfico PIZZA -----------------------------------------------------------
 
     //------------3º Gráfico Dos Filmes mais assistidos----------------------------
     const chart = reactive({
@@ -391,42 +283,17 @@ export default {
     //------------FIM 3º Gráfico Dos Filmes mais assistidos----------------------------
 
     onMounted(async () => {
-      getdDataBD()
+      getdDataBD();
+      preechDaysValue();
     });
+
     return {
+      daysStatistic,
       visible,
       bar,
       chart,
-      pie,
-      areaChart,
       filter: ref(''),
-      tab: ref('mails'),
-      tab2: ref('mails'),
-
-
-      cinemas: [
-        {
-          nome: 'MCP UAN',
-          numero: 110,
-        },
-        {
-          nome: 'MCP Samba',
-          numero: 103,
-        },
-        {
-          nome: 'MCP Malanje',
-          numero: 100,
-        },
-        {
-          nome: 'MCP Benguela',
-          numero: 70,
-        },
-        {
-          nome: 'MCP Nova Vida',
-          numero: 30,
-        },
-      ],
-      //---------------- FILMES ---------------------------------
+      tab: ref('grafico'),
 
       users: [
         {

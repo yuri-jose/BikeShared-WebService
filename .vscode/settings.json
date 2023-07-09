@@ -13,5 +13,6 @@
   "editor.accessibilityPageSize": 18,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.codeLensFontSize": 1,
-  "editor.columnSelection": true
+  "editor.columnSelection": true,
+  "vue.codeActions.enabled": false
 }

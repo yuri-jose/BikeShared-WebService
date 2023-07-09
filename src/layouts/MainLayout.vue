@@ -10,35 +10,49 @@
             Bike Shared
           </q-toolbar-title>
         </q-btn>
-
-        <q-space />
-
-        <div class="YL__toolbar-input-container row no-wrap">
-          <q-input dense outlined square v-model="search" placeholder="Search" class="bg-white col" />
-          <q-btn class="YL__toolbar-input-btn" color="grey-3" text-color="grey-8" icon="search" unelevated />
-        </div>
+        <q-btn flat no-caps no-wrap class="q-ml-ms" v-else>
+          <q-icon name="img:/img/noun-bike-1997666.svg" style="margin-right: -15px;" size="30px" />
+          <q-toolbar-title shrink class="text-weight-bold">
+            Bike Shared
+          </q-toolbar-title>
+        </q-btn>
 
         <q-space />
 
         <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn round dense flat color="grey-8" icon="video_call" v-if="$q.screen.gt.sm">
-            <q-tooltip>Create a video or post</q-tooltip>
-          </q-btn>
-          <q-btn round dense flat color="grey-8" icon="apps" v-if="$q.screen.gt.sm">
-            <q-tooltip>Apps</q-tooltip>
-          </q-btn>
-          <q-btn round dense flat color="grey-8" icon="message" v-if="$q.screen.gt.sm">
-            <q-tooltip>Messages</q-tooltip>
+          <q-btn round dense flat color="grey-8" icon="message">
+            <q-tooltip>Mensagens</q-tooltip>
           </q-btn>
           <q-btn round dense flat color="grey-8" icon="notifications">
-            <q-badge color="red" text-color="white" floating> 2 </q-badge>
-            <q-tooltip>Notifications</q-tooltip>
+            <q-badge color="red" text-color="white" floating> 7 </q-badge>
+            <q-tooltip>Notificações</q-tooltip>
           </q-btn>
           <q-btn round flat>
-            <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+            <q-avatar size="30px">
+              <img src="img/huawei.png" />
             </q-avatar>
-            <q-tooltip>Account</q-tooltip>
+            <q-tooltip>{{ user.name }}</q-tooltip>
+            <q-menu>
+              <div class="row no-wrap q-pa-md">
+                <div class="column">
+
+                  <q-btn class="q-mt-md" label="Meu Perfil" dark-percentage />
+                  <q-btn class="q-mt-md" label="Minhas Notas" dark-percentage />
+                </div>
+
+                <q-separator vertical inset class="q-mx-lg" />
+
+                <div class="column items-center">
+                  <q-avatar size="72px">
+                    <img src="img/huawei.png">
+                  </q-avatar>
+
+                  <div class="text-subtitle1 q-mt-md q-mb-xs">{{ user.name }}</div>
+
+                  <q-btn color="primary" label="Sair" push size="sm" v-close-popup />
+                </div>
+              </div>
+            </q-menu>
           </q-btn>
         </div>
       </q-toolbar>
@@ -58,19 +72,8 @@
 
           <q-separator class="q-my-md" />
 
-          <q-item v-for="link in links2" :key="link.text" v-ripple clickable>
-            <q-item-section avatar>
-              <q-icon color="grey" :name="link.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ link.text }}</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-separator class="q-mt-md q-mb-xs" />
-
           <q-item-label header class="text-weight-bold text-uppercase">
-            More from Youtube
+            MAIS DO BIKESHARED
           </q-item-label>
 
           <q-separator class="q-my-md" />
@@ -94,24 +97,22 @@
 
 <script>
 import { ref } from 'vue';
-import { fabYoutube } from '@quasar/extras/fontawesome-v6';
 
 export default {
   name: 'MyLayout',
 
   setup() {
     const leftDrawerOpen = ref(false);
-    const search = ref('');
+
+    const user = { name: 'Yuri Rego' };
 
     function toggleLeftDrawer() {
       leftDrawerOpen.value = !leftDrawerOpen.value;
     }
 
     return {
-      fabYoutube,
-
+      user,
       leftDrawerOpen,
-      search,
 
       toggleLeftDrawer,
 
@@ -120,16 +121,11 @@ export default {
         { icon: 'subscriptions', text: 'Estações', route: '/listEstacao' },
         { icon: 'group', text: 'Utilizadores', route: '/listUsers' },
       ],
-      links2: [
-        { icon: 'folder', text: 'Library' },
-      ],
+
       buttons1: [
         { text: 'About' },
-        { text: 'Press' },
         { text: 'Copyright' },
         { text: 'Contact us' },
-        { text: 'Creators' },
-        { text: 'Advertise' },
         { text: 'Developers' },
       ],
     };
